@@ -1,2 +1,2 @@
-# mood-detection
-Mood detection for deep NLP project
+# Kaggle tweet sentiment extraction
+https://www.kaggle.com/c/tweet-sentiment-extraction/overview
