@@ -61,6 +61,25 @@ For attention mechanism sentiment embedding is used as a query, RNN outputs for 
 Attention didn't improve the model, the loss falls only for 2-3 of epochs and the model overfits. Parameter tuning didn't help and score was very low on validation set - around 0.41.
 My explanation is that one word sentiment may carry too little context to make attention work well here. For good performance all words in selected text have to be distinctly "positively" or "negatively" colored.
 
+*ViktorPokazanyev (@wildyagup)*
+1. RoBERTa baseline:
+
+- Pretrained roberta-base model from HuggingFace (https://huggingface.co/roberta-base)
+
+- Sentiment prepended to input text as separate sentence
+
+- Averaged 3 last hiddden layers for better performance
+
+- Two linear layers for start/end positions prediction
+
+- Masked output for CrossEntropyLoss calculation and prediciton (all special tokens and sentiment)
+
+- Prediction is obtained via an algorithm described in BIDAF paper (maximization of p_start * p_end)
+
+- AdamW + linear learning rate scheduler
+
+Best leaderboard score is 0.701 (~0.72-0.74 on validation).
+
 ## Future plans:
 *EugeniaMatveeva (@eugenie_mat)*
 
@@ -68,3 +87,13 @@ My explanation is that one word sentiment may carry too little context to make a
 Try to use pretrained BERT model. Hopefully this will give better scores as it is more efficient, pretrained model. Also it gives better tokenisation and works better with unknown words which is a big problem for twitter nonstrict vocabulary.
 
 4. Many selected texts are not strictly split, they include punctuation or parts of words. So adding some character level models as CNN may help, maybe in ensemble with another model that works best.
+
+*ViktorPokazanyev (@wildyagup)*
+
+2. RoBERTa + RNN
+An attempt to imitate BIDAF architecture's modelling and output layers while replacing attention flow with transformer. 
+The main challenge is to prevent RNN overfitting.
+
+3. Miscellaneous improvements
+* experiment with output masking / padding / batching
+* experiment with tokenization (word parts / ngrams)
