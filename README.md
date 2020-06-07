@@ -61,6 +61,23 @@ For attention mechanism sentiment embedding is used as a query, RNN outputs for 
 Attention didn't improve the model, the loss falls only for 2-3 of epochs and the model overfits. Parameter tuning didn't help and score was very low on validation set - around 0.41.
 My explanation is that one word sentiment may carry too little context to make attention work well here. For good performance all words in selected text have to be distinctly "positively" or "negatively" colored.
 
+3. BERT model
+
+Sentiment and tweet text are concatenated with a separator as two sentences. 
+
+- BERT (using last 2 hidden outputs, for st)
+
+- Dropout (0.1)
+
+- Linear layer (2 outputs for start abd end positions)
+
+Cross Entropy loss is used, total loss is sum for losses of of start and end words.
+Used Adam optimizer.
+
+Submission score is 0.696.
+
+Next step would be to fine tune parameters using cross validation.
+
 *ViktorPokazanyev (@wildyagup)*
 1. RoBERTa baseline:
 
@@ -82,9 +99,6 @@ Best leaderboard score is 0.701 (~0.72-0.74 on validation).
 
 ## Future plans:
 *EugeniaMatveeva (@eugenie_mat)*
-
-3. BERT model
-Try to use pretrained BERT model. Hopefully this will give better scores as it is more efficient, pretrained model. Also it gives better tokenisation and works better with unknown words which is a big problem for twitter nonstrict vocabulary.
 
 4. Many selected texts are not strictly split, they include punctuation or parts of words. So adding some character level models as CNN may help, maybe in ensemble with another model that works best.
 
