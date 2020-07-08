@@ -65,18 +65,18 @@ My explanation is that one word sentiment may carry too little context to make a
 
 Sentiment and tweet text are concatenated with a separator as two sentences. 
 
-- BERT (using last 2 hidden outputs, for st)
+- BERT base (using last 2 hidden outputs, for st)
 
 - Dropout (0.1)
 
 - Linear layer (2 outputs for start abd end positions)
 
 Cross Entropy loss is used, total loss is sum for losses of of start and end words.
-Used Adam optimizer.
+Used AdamW optimizer and constant schedule with warmup for learning rate.
 
-Submission score is 0.696.
+Trained 5 models on 5 folds.
 
-Next step would be to fine tune parameters using cross validation.
+Final score on leaderboard was 0.705
 
 *ViktorPokazanyev (@wildyagup)*
 1. RoBERTa baseline:
@@ -101,6 +101,8 @@ Best leaderboard score is 0.701 (~0.72-0.74 on validation).
 *EugeniaMatveeva (@eugenie_mat)*
 
 4. Many selected texts are not strictly split, they include punctuation or parts of words. So adding some character level models as CNN may help, maybe in ensemble with another model that works best.
+
+(adding CNN didn't improve score)
 
 *ViktorPokazanyev (@wildyagup)*
 
